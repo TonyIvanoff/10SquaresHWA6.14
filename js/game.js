@@ -5,11 +5,16 @@ let hits = 0;
 let firstHitTime = 0;
 
 function round() {
-  // FIXME: надо бы убрать "target" прежде чем искать новый
-
+  // FIXME: надо бы убрать "target" прежде чем искать новый---Done
+  $(".target").removeClass("target");
   let divSelector = randomDivId();
   $(divSelector).addClass("target");
   // TODO: помечать target текущим номером
+  let currentCellNumber = 1;
+  
+  $(".target").text(currentCellNumber + 1);
+  currentCellNumber++;
+
 
   // FIXME: тут надо определять при первом клике firstHitTime
 
@@ -19,8 +24,8 @@ function round() {
 }
 
 function endGame() {
-  // FIXME: спрятать игровое поле сначала
-
+  // FIXME: спрятать игровое поле сначала -- DONE
+  $(".game-field").addClass("d-none");
   let totalPlayedMillis = getTimestamp() - firstHitTime;
   let totalPlayedSeconds = Number(totalPlayedMillis / 1000).toPrecision(3);
   $("#total-time-played").text(totalPlayedSeconds);
@@ -32,6 +37,7 @@ function handleClick(event) {
   // FIXME: убирать текст со старых таргетов. Кажется есть .text?
   if ($(event.target).hasClass("target")) {
     hits = hits + 1;
+    
     round();
   }
   // TODO: как-то отмечать если мы промахнулись? См CSS класс .miss
