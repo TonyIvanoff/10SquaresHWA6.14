@@ -40,7 +40,7 @@ function handleClick(event) {
     hits = hits + 1;
     $(".target").text(""); 
   }
-  // TODO: как-то отмечать если мы промахнулись? См CSS класс .miss
+  
   else{
     $(event.target).addClass("miss");
     missedClick++;
@@ -51,7 +51,10 @@ function handleClick(event) {
 
 function init() {
   // TODO: заказчик просил отдельную кнопку, запускающую игру а не просто по загрузке
-  round();
+  $("#button-start").click(function() {
+    round();
+  });
+  
 
   $(".game-field").click(handleClick);
   $("#button-reload").click(function() {
