@@ -5,7 +5,8 @@ const maxHits = 10;
 let hits = 0;
 let firstHitTime = 0;
 let currentCellNumber = 0;
-let missedClick = 0;
+let missedHits = 0;
+let goodHits = 0;
 
 function round() {
   if ($(".target")) {
@@ -20,9 +21,10 @@ function round() {
   
   if (currentCellNumber == 1) {
     firstHitTime = getTimestamp();
-    console.log(firstHitTime);
   };
   if (hits === maxHits) {
+    goodHits = maxHits - missedHits;
+    $("#total-green-hits").text(goodHits);
     endGame();
   }
 }
@@ -46,7 +48,7 @@ function handleClick(event) {
   
   else{
     $(event.target).addClass("miss");
-    missedClick++;
+    missedHits++;
     hits = hits + 1;
   }
   round();
