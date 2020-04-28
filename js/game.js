@@ -1,21 +1,20 @@
 const numDivs = 36;
 const maxHits = 10;
 
+
 let hits = 0;
 let firstHitTime = 0;
+let currentCellNumber = 0;
 
 function round() {
+  
   // FIXME: надо бы убрать "target" прежде чем искать новый---Done
   $(".target").removeClass("target");
   let divSelector = randomDivId();
   $(divSelector).addClass("target");
   // TODO: помечать target текущим номером
-  let currentCellNumber = 1;
-  
-  $(".target").text(currentCellNumber + 1);
   currentCellNumber++;
-
-
+  $(".target").text(currentCellNumber);
   // FIXME: тут надо определять при первом клике firstHitTime
 
   if (hits === maxHits) {
@@ -34,10 +33,10 @@ function endGame() {
 }
 
 function handleClick(event) {
-  // FIXME: убирать текст со старых таргетов. Кажется есть .text?
+  // FIXME: убирать текст со старых таргетов. Кажется есть .text? -- Done
   if ($(event.target).hasClass("target")) {
     hits = hits + 1;
-    
+    $(".target").text("");
     round();
   }
   // TODO: как-то отмечать если мы промахнулись? См CSS класс .miss
