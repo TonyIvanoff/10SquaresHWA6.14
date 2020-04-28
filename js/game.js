@@ -5,17 +5,18 @@ const maxHits = 10;
 let hits = 0;
 let firstHitTime = 0;
 let currentCellNumber = 0;
+let missedClick = 0;
 
 function round() {
-  
-  // FIXME: надо бы убрать "target" прежде чем искать новый---Done
-  
-  $(".target").removeClass("target");
+  if ($(".target")) {
+    $(".target").text("");
+    $(".target").removeClass("target");
+  }
   let divSelector = randomDivId();
   $(divSelector).addClass("target");
-  // TODO: помечать target текущим номером
   currentCellNumber++;
   $(".target").text(currentCellNumber);
+  
   // FIXME: тут надо определять при первом клике firstHitTime
 
   if (hits === maxHits) {
@@ -34,14 +35,19 @@ function endGame() {
 }
 
 function handleClick(event) {
-  
+  $(".miss").removeClass("miss");
   if ($(event.target).hasClass("target")) {
     hits = hits + 1;
-    $(".target").text("");
-    round();
+    $(".target").text(""); 
   }
   // TODO: как-то отмечать если мы промахнулись? См CSS класс .miss
-}
+  else{
+    $(event.target).addClass("miss");
+    missedClick++;
+    hits = hits + 1;
+  }
+  round();
+} 
 
 function init() {
   // TODO: заказчик просил отдельную кнопку, запускающую игру а не просто по загрузке
