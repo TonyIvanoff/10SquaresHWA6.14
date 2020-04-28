@@ -17,8 +17,11 @@ function round() {
   currentCellNumber++;
   $(".target").text(currentCellNumber);
   
-  // FIXME: тут надо определять при первом клике firstHitTime
-
+  
+  if (currentCellNumber == 1) {
+    firstHitTime = getTimestamp();
+    console.log(firstHitTime);
+  };
   if (hits === maxHits) {
     endGame();
   }
@@ -50,7 +53,7 @@ function handleClick(event) {
 } 
 
 function init() {
-  // TODO: заказчик просил отдельную кнопку, запускающую игру а не просто по загрузке
+  
   $("#button-start").click(function() {
     round();
   });
